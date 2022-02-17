@@ -21,6 +21,18 @@ def get_image_url(request, image):
     return ''
 
 
+def get_pokemon_info(request, pokemon):
+    """Возвращает данные по покемону."""
+    if pokemon:
+        return {
+            'title_ru': pokemon.title,
+            'pokemon_id': pokemon.id,
+            'img_url': get_image_url(request, pokemon.image)
+        }
+
+    return {}
+
+
 def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
     icon = folium.features.CustomIcon(
         image_url,
@@ -78,7 +90,11 @@ def show_pokemon(request, pokemon_id):
         'title_ru': pokemon.title,
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
-        'description': pokemon.description
+        'description': pokemon.description,
+        'next_evolution': get_pokemon_info(request,
+                                           pokemon.next_evolution),
+        'previous_evolution': get_pokemon_info(request,
+                                               pokemon.previous_evolution)
     }
 
     return render(request, 'pokemon.html', context={
