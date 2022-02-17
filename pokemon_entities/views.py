@@ -25,7 +25,7 @@ def get_pokemon_info(request, pokemon):
     """Возвращает данные по покемону."""
     if pokemon:
         return {
-            'title_ru': pokemon.title,
+            'title_ru': pokemon.title_ru,
             'pokemon_id': pokemon.id,
             'img_url': get_image_url(request, pokemon.image)
         }
@@ -58,11 +58,7 @@ def show_all_pokemons(request):
 
     pokemons_on_page = []
     for pokemon in Pokemon.objects.all():
-        pokemons_on_page.append({
-            'pokemon_id': pokemon.id,
-            'img_url': get_image_url(request, pokemon.image),
-            'title_ru': pokemon.title,
-        })
+        pokemons_on_page.append(get_pokemon_info(request, pokemon))
 
     return render(request, 'mainpage.html', context={
         'map': folium_map._repr_html_(),
@@ -87,7 +83,7 @@ def show_pokemon(request, pokemon_id):
     pokemon = {
         'pokemon_id': pokemon.id,
         'img_url': get_image_url(request, pokemon.image),
-        'title_ru': pokemon.title,
+        'title_ru': pokemon.title_ru,
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
         'description': pokemon.description,
