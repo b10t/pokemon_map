@@ -12,11 +12,6 @@ class Pokemon(models.Model):
                                            null=True,
                                            blank=True,
                                            related_name='previous')
-    next_evolution = models.ForeignKey('self',
-                                       on_delete=models.SET_NULL,
-                                       null=True,
-                                       blank=True,
-                                       related_name='next')
 
     def __str__(self) -> str:
         return self.title
