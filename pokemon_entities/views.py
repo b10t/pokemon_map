@@ -88,7 +88,7 @@ def show_pokemon(request, pokemon_id):
         'title_jp': pokemon.title_jp,
         'description': pokemon.description,
         'next_evolution': get_pokemon_info(request,
-                                           pokemon.previous.all().first()),
+                                           pokemon.next_evolution.all().first()),
         'previous_evolution': get_pokemon_info(request,
                                                pokemon.previous_evolution)
     }

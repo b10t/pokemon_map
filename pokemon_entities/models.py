@@ -5,19 +5,22 @@ class Pokemon(models.Model):
     title_ru = models.CharField(max_length=200,
                                 verbose_name='Название на русском')
     title_en = models.CharField(max_length=200,
+                                blank=True,
                                 verbose_name='Название на английском')
     title_jp = models.CharField(max_length=200,
+                                blank=True,
                                 verbose_name='Название на японском')
     image = models.ImageField(null=True,
                               blank=True,
                               verbose_name='Изображение')
     description = models.TextField(default='',
+                                   blank=True,
                                    verbose_name='Описание')
     previous_evolution = models.ForeignKey('self',
                                            on_delete=models.SET_NULL,
                                            null=True,
                                            blank=True,
-                                           related_name='previous',
+                                           related_name='next_evolution',
                                            verbose_name='Предок')
 
     def __str__(self) -> str:
